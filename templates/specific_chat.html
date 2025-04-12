@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Chat Específico</title>
+  <style>
+    #chat { border: 1px solid #ccc; padding: 20px; width: 400px; height: 500px; overflow-y: auto; }
+    .msg { margin-bottom: 10px; }
+    .user { color: blue; }
+    .bot { color: green; }
+  </style>
+</head>
+
+<body>
+  <h2>Chat Específico</h2>
+  <div id="chat">
+    {% for msg in chats %}
+    <div class="msg user"><strong>Tú:</strong> {{ msg[0] }}</div>
+    <div class="msg bot"><strong>Gemini:</strong> {{ msg[1] }}</div>
+    {% endfor %}
+  </div>
+
+  <input type="text" id="input" placeholder="Escribe tu mensaje..." style="width: 300px;" onkeypress="handleKeyPress(event)" />
+  <button onclick="sendMessage()">Enviar</button>
+
+  <!-- Botón para ir al historial de chats -->
+  <br><br>
+  <button onclick="window.location.href='/view_chats'">Ver Historial</button>
+
+  <script>
+    function handleKeyPress(event) {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        sendMessage();
+      }
+    }
+
+    async function sendMessage() {
+      const input = document.getElementById("input");
+      const message = input.value;
+      input.value = "";
+
+      const chat = document.getElementById("chat");
+      chat.innerHTML += `<div class="msg user"><strong>Tú:</strong> ${message}</div>`;
+
+      const res = await fetch("/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: message })
+      });
+
+      const data = await res.json();
+
+      if (data.reply) {
+        chat.innerHTML += `<div class="msg bot"><strong>Gemini:</strong> ${data.reply}</div>`;
+      } else {
+        chat.innerHTML += `<div class="msg bot"><strong>Gemini:</strong> No se pudo obtener una respuesta.</div>`;
+      }
+
+      chat.scrollTop = chat.scrollHeight;
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Bienvenido a FocusFlow</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+
+    .header {
+      background-color: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      padding: 1rem 2rem;
+      box-shadow: 
+        0 4px 6px -1px rgba(0, 0, 0, 0.1),
+        0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      transition: all 0.3s ease;
+    }
+
+    .header.scrolled {
+      background-color: rgba(255, 255, 255, 0.98);
+      padding: 0.8rem 2rem;
+    }
+
+    .logo {
+      color: #137333;
+      font-size: 1.5rem;
+      font-weight: 600;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .logo:hover {
+      transform: translateY(-1px);
+    }
+
+    .nav-buttons {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .btn {
+      background-color: transparent;
+      color: #137333;
+      border: 2px solid #137333;
+      padding: 0.5rem 1.5rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background-color: #137333;
+      color: white;
+      border: none;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 6px rgba(19, 115, 51, 0.1);
+    }
+
+    .btn-primary:hover {
+      background-color: #0f6129;
+    }
+
+    .main-content {
+      margin-top: 80px;
+      min-height: calc(100vh - 80px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+    }
+
+    .hero-section {
+    background: linear-gradient(135deg, rgba(19, 115, 51, 0.02) 0%, rgba(19, 115, 51, 0.08) 100%);
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6rem;
+    width: 95%;
+    max-width: 1400px;
+    margin: 2rem auto 6rem;
+    padding: 5rem 4rem;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 
+        0 25px 50px rgba(19, 115, 51, 0.05),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+}
+
+.hero-content {
+    flex: 1;
+    max-width: 650px;
+    padding: 3rem;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 24px;
+    box-shadow: 
+        0 10px 30px rgba(0, 0, 0, 0.05),
+        0 0 0 1px rgba(255, 255, 255, 0.3);
+}
+
+.hero-image {
+    flex: 1;
+    max-width: 600px;
+    padding: 2rem;
+}
+
+.hero-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 24px;
+    box-shadow: 
+        0 25px 50px rgba(0, 0, 0, 0.12),
+        0 0 0 1px rgba(255, 255, 255, 0.1);
+    transform: perspective(1000px) rotateY(-5deg);
+    transition: transform 0.5s ease;
+}
+
+.hero-image img:hover {
+    transform: perspective(1000px) rotateY(0deg);
+}
+
+.section-title {
+    font-size: 3.2rem;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(135deg, #137333 0%, #1a8940 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.section-subtitle {
+    font-size: 1.3rem;
+    line-height: 1.6;
+    color: #444;
+    margin-bottom: 2.5rem;
+}
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      width: 100%;
+      padding: 0 2rem;
+    }
+
+    .feature-card {
+      background: white;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .feature-icon {
+      background: #e6f4ea;
+      color: #137333;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+    }
+
+    .section-title {
+      color: #137333;
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      font-weight: 600;
+    }
+
+    .section-subtitle {
+      color: #444;
+      font-size: 1.2rem;
+      margin-bottom: 3rem;
+      max-width: 600px;
+      line-height: 1.6;
+    }
+
+    .highlight {
+      color: #137333;
+      font-weight: 500;
+    }
+
+    .container {
+      text-align: center;
+      max-width: 800px;
+      padding: 3rem;
+      background-color: white;
+      box-shadow: 
+        0 10px 25px rgba(0, 0, 0, 0.05),
+        0 5px 10px rgba(0, 0, 0, 0.02);
+      border-radius: 16px;
+    }
+
+    h1 {
+      color: #611232;
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      color: #666;
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+    }
+
+    .ai-assistant-section {
+        padding: 4rem 2rem;
+        background: linear-gradient(to bottom, #f4f4f4, #ffffff);
+        width: 100%;
+    }
+
+    .assistant-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        gap: 4rem;
+    }
+
+    .assistant-image {
+        flex: 1;
+        text-align: center;
+    }
+
+    .assistant-image img {
+        max-width: 400px;
+        animation: floating 3s ease-in-out infinite;
+    }
+
+    @keyframes floating {
+        0% { transform: translateY(0px); }
+        50% { transform: translateY(-20px); }
+        100% { transform: translateY(0px); }
+    }
+
+    .assistant-content {
+        flex: 1;
+    }
+
+    .assistant-features {
+        margin-top: 2rem;
+    }
+
+    .feature {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .feature-check {
+        color: #137333;
+        font-size: 1.2rem;
+    }
+
+    .cta-section {
+        text-align: center;
+        padding: 4rem 2rem;
+        background-color: #137333;
+        color: white;
+        width: 100%;
+    }
+
+    .cta-section h2 {
+        color: white;
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+
+    .btn-large {
+        padding: 1rem 2.5rem;
+        font-size: 1.1rem;
+        margin-top: 2rem;
+        background-color: white;
+        color: #137333;
+        border: none;
+    }
+
+    .footer {
+        background-color: #1a1a1a;
+        color: white;
+        padding: 4rem 2rem 2rem;
+    }
+
+    .footer-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+    }
+
+    .footer-section h3 {
+        color: white;
+        margin-bottom: 1.5rem;
+        font-size: 1.2rem;
+    }
+
+    .footer-section ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .footer-section ul li {
+        margin-bottom: 0.8rem;
+    }
+
+    .footer-section a {
+        color: #999;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .footer-section a:hover {
+        color: white;
+    }
+
+    .social-links {
+        display: flex;
+        gap: 1rem;
+    }
+
+    .social-link {
+        color: #999;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .footer-bottom {
+        text-align: center;
+        margin-top: 4rem;
+        padding-top: 2rem;
+        border-top: 1px solid #333;
+        color: #999;
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <a href="/" class="logo">
+      <img src="https://static.vecteezy.com/system/resources/previews/000/565/466/original/vector-logos-of-green-tree-leaf-ecology.jpg" alt="FocusFlow" height="30">
+    </a>
+    <nav class="nav-buttons">
+      <a href="/login" class="btn">Iniciar sesión</a>
+      <a href="/register" class="btn btn-primary">Registrarse</a>
+    </nav>
+  </header>
+
+  <main class="main-content">
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1 class="section-title">Empower Your Focus with FocusFlow</h1>
+            <p class="section-subtitle">
+                Your AI-powered companion designed specifically for individuals with ADHD, 
+                helping you transform challenges into achievements.
+            </p>
+            <a href="/register" class="cta-button">Get Started</a>
+        </div>
+        <div class="hero-image">
+            <img src="https://domf5oio6qrcr.cloudfront.net/medialibrary/7673/ae080cdc-8915-4e19-9d88-c73091f45ccf16207267097272.jpg" alt="FocusFlow Hero">
+        </div>
+    </section>
+
+    <div class="features-grid">
+        <div class="feature-card">
+            <div class="feature-icon">🎯</div>
+            <h3>Task Management</h3>
+            <p>Break down complex tasks into manageable steps, with AI-powered prioritization 
+               and time management suggestions tailored to your ADHD patterns.</p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">🧠</div>
+            <h3>Cognitive Support</h3>
+            <p>Leverage our advanced AI to help maintain focus, reduce distractions, 
+               and create an environment conducive to productivity.</p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">📊</div>
+            <h3>Progress Tracking</h3>
+            <p>Visualize your achievements and growth with intuitive analytics, 
+               helping you understand your patterns and celebrate progress.</p>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon">🤝</div>
+            <h3>Personalized Guidance</h3>
+            <p>Receive real-time support and strategies specifically designed for 
+               ADHD challenges, adapting to your unique needs and work style.</p>
+        </div>
+    </div>
+
+    <section class="hero-section" style="margin-top: 4rem;">
+        <h2 class="section-title">Why Choose FocusFlow?</h2>
+        <p class="section-subtitle">
+            We understand that <span class="highlight">ADHD</span> presents unique challenges. 
+            Our platform combines cutting-edge AI technology with evidence-based ADHD management 
+            strategies to help you achieve your full potential.
+        </p>
+    </section>
+
+    <section class="ai-assistant-section">
+        <div class="assistant-container">
+            <div class="assistant-image">
+                <img src="https://cdn.businessinsider.es/sites/navi.axelspringer.es/public/media/image/2024/01/inteligencia-artificial-ia-estudio-percepcion-espana-3265470.jpg?tf=640x" alt="AI Assistant" class="floating">
+            </div>
+            <div class="assistant-content">
+                <h2 class="section-title">Meet Your AI Assistant</h2>
+                <p class="section-subtitle">
+                    Available 24/7, our AI-powered assistant helps you stay focused and organized. 
+                    Get personalized support, reminders, and strategies tailored to your ADHD needs.
+                </p>
+                <div class="assistant-features">
+                    <div class="feature">
+                        <span class="feature-check">✓</span>
+                        <p>Real-time focus suggestions</p>
+                    </div>
+                    <div class="feature">
+                        <span class="feature-check">✓</span>
+                        <p>Task prioritization assistance</p>
+                    </div>
+                    <div class="feature">
+                        <span class="feature-check">✓</span>
+                        <p>Emotional support and motivation</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+<script>
+  window.addEventListener('scroll', function() {
+    const header = document.querySelector('.header');
+    if (window.scrollY > 10) {
+      header.classList.add('scrolled');
+    } else {
+      header.classList.remove('scrolled');
+    }
+  });
+</script>
+    <section class="cta-section">
+        <h2>Ready to Transform Your Focus?</h2>
+        <p>Join thousands of users who have improved their productivity with FocusFlow</p>
+        <a href="/register" class="btn btn-primary btn-large">Get Started Free</a>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+        <div class="footer-section">
+            <h3>FocusFlow</h3>
+            <p>Empowering individuals with ADHD to achieve their full potential through AI-powered support.</p>
+        </div>
+        <div class="footer-section">
+            <h3>Quick Links</h3>
+            <ul>
+                <li><a href="/about">About Us</a></li>
+                <li><a href="/features">Features</a></li>
+                <li><a href="/pricing">Pricing</a></li>
+                <li><a href="/blog">Blog</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h3>Support</h3>
+            <ul>
+                <li><a href="/faq">FAQ</a></li>
+                <li><a href="/contact">Contact Us</a></li>
+                <li><a href="/privacy">Privacy Policy</a></li>
+                <li><a href="/terms">Terms of Service</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h3>Connect</h3>
+            <div class="social-links">
+                <a href="#" class="social-link">Twitter</a>
+                <a href="#" class="social-link">LinkedIn</a>
+                <a href="#" class="social-link">Instagram</a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2024 FocusFlow. All rights reserved.</p>
+    </div>
+  </footer>
+</body>
+</html>

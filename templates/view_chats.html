@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Historial de Chats</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #aaa;
+      padding: 10px;
+      text-align: left;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Historial de Chats 💬</h2>
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>Usuario</th>
+      <th>Bot</th>
+      <th>Fecha</th>
+      <th>Acción</th> <!-- Columna para los botones -->
+    </tr>
+    {% for chat in chats %}
+    <tr>
+      <td>{{ chat[0] }}</td>
+      <td>{{ chat[1] }}</td>
+      <td>{{ chat[2] }}</td>
+      <td>{{ chat[3] }}</td>
+      <td>
+        <!-- Botón para ir al chat específico -->
+        <button onclick="window.location.href='/chat/{{ chat[0] }}'">Volver a este chat</button>
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+</body>
+</html>
+
