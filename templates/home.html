@@ -373,6 +373,146 @@
         .user-avatar {
             background: linear-gradient(135deg, #137333 0%, #1a8940 100%);
         }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            padding: 1.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .dashboard-card {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            box-shadow: 
+                0 4px 6px rgba(0, 0, 0, 0.05),
+                0 1px 3px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 
+                0 6px 12px rgba(0, 0, 0, 0.1),
+                0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-header i {
+            font-size: 1.25rem;
+            color: var(--color-primary);
+        }
+
+        .card-header h2 {
+            font-family: var(--font-heading);
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #333;
+            margin: 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: #666;
+        }
+
+        .tasks-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .task-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            transition: background-color 0.2s ease;
+        }
+
+        .task-item.completed i {
+            color: var(--color-primary);
+        }
+
+        .task-time {
+            margin-left: auto;
+            font-size: 0.875rem;
+            color: #666;
+        }
+
+        .tips-carousel {
+            position: relative;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 12px;
+        }
+
+        .tip-item {
+            padding: 1rem;
+        }
+
+        .tip-text {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #333;
+            margin-bottom: 0.75rem;
+        }
+
+        .tip-source {
+            display: block;
+            font-size: 0.875rem;
+            color: var(--color-primary);
+            font-weight: 500;
+        }
+
+        @media (max-width: 1024px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .welcome-header {
+            font-family: var(--font-heading);
+            font-size: 1.75rem;
+            color: #333;
+            margin: 0;
+        }
+
+        .user-highlight {
+            color: var(--color-primary);
+            font-weight: 700;
+        }
     </style>
 </head>
 <body>
@@ -381,63 +521,92 @@
         <span class="logo-text">FocusFlow</span>
     </div>
     <div class="chat-history">
-        <a href="/home" class="chat-item">
-            <i class="fas fa-home"></i>
-            <span>Home</span>
-        </a>
-        <a href="/chatbot" class="chat-item">
+      <div class="chat-item">
+        <i class="fas fa-home"></i>
+        <span>home</span>
+    </div>
+        <div class="chat-item">
             <i class="fas fa-comments"></i>
             <span>Chatbot</span>
-        </a>
-        <a href="/history" class="chat-item">
+        </div>
+        <div class="chat-item">
             <i class="fas fa-history"></i>
             <span>Historial</span>
-        </a>
-        <a href="/settings" class="chat-item">
+        </div>
+        <div class="chat-item">
             <i class="fas fa-cog"></i>
             <span>Configuración</span>
-        </a>
-        <a href="/help" class="chat-item">
+        </div>
+        <div class="chat-item">
             <i class="fas fa-question-circle"></i>
             <span>Ayuda</span>
-        </a>
+    <div class="chat-history">
+        <div class="chat-item">Nueva conversación</div>
     </div>
 </aside>
 
 <main class="main-container">
     <header class="header">
+        <h1 class="welcome-header">
+            Bienvenido, <span class="user-highlight">{{ session.user_name }}</span>
+        </h1>
         <div class="user-info">
-            <div class="user-avatar">{{ session.user_name[0].upper() if session.user_name else 'U' }}</div>
-            <span class="user-name">{{ session.user_name if session.user_name else 'Usuario' }}</span>
+            <div class="user-avatar">{{ session.user_name[0].upper() }}</div>
+            <span class="user-name">{{ session.user_name }}</span>
             <i class="fas fa-chevron-down dropdown-icon"></i>
-            
-            <!-- Menú desplegable mejorado -->
             <div class="user-menu" id="userMenu">
-                <a href="/settings" class="menu-item">
-                    <i class="fas fa-cog"></i>
-                    <span>Configuración</span>
-                </a>
-                <div class="menu-divider"></div>
-                <a href="/logout" class="menu-item menu-item-danger">
-                    <i class="fas fa-sign-out-alt"></i>
-                    <span>Cerrar Sesión</span>
-                </a>
+                    <span class="stat-value">85%</span>                <div class="stat-item">            <div class="stats-grid">            </div>                <h2>Resumen del Día</h2>                <i class="fas fa-chart-line"></i>            <div class="card-header">        <div class="dashboard-card summary-card">        <!-- Panel de Resumen -->    <div class="dashboard-grid">    </header>        </div>            </div>                </a>                    <span>Cerrar Sesión</span>                    <i class="fas fa-sign-out-alt"></i>                <a href="/logout" class="menu-item menu-item-danger">                <div class="menu-divider"></div>                </a>                    <span>Configuración</span>                    <i class="fas fa-cog"></i>                <a href="/settings" class="menu-item">                    <span class="stat-label">Nivel de Foco</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value">12</span>
+                    <span class="stat-label">Tareas Completadas</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-value">3h 45m</span>
+                    <span class="stat-label">Tiempo Productivo</span>
+                </div>
             </div>
         </div>
-    </header>
 
-    <div class="chat-container" id="chatContainer">
-      <div class="welcome-message" id="welcomeMessage">
-          <h2>Hi {{ session.user_name if session.user_name else 'User' }}! 👋</h2>
-          <p>How is your day going?</p>
-      </div>
-  </div>
-    
+        <!-- Panel de Estado de Ánimo -->
+        <div class="dashboard-card mood-card">
+            <div class="card-header">
+                <i class="fas fa-smile"></i>
+                <h2>Estado de Ánimo</h2>
+            </div>
+            <div class="mood-chart">
+                <!-- Aquí irá el gráfico de estado de ánimo -->
+            </div>
+        </div>
 
-    <div class="input-container">
-        <div class="input-wrapper">
-            <textarea class="message-input" placeholder="Escribe un mensaje..." rows="1" id="messageInput"></textarea>
-            <button class="send-button" id="sendButton">Enviar</button>
+        <!-- Panel de Tareas Completadas -->
+        <div class="dashboard-card tasks-card">
+            <div class="card-header">
+                <i class="fas fa-tasks"></i>
+                <h2>Tareas Completadas</h2>
+            </div>
+            <div class="tasks-list">
+                <div class="task-item completed">
+                    <i class="fas fa-check-circle"></i>
+                    <span>Completar informe mensual</span>
+                    <span class="task-time">10:30 AM</span>
+                </div>
+                <!-- Más tareas... -->
+            </div>
+        </div>
+
+        <!-- Panel de Consejos AI -->
+        <div class="dashboard-card ai-tips-card">
+            <div class="card-header">
+                <i class="fas fa-lightbulb"></i>
+                <h2>Consejos Personalizados</h2>
+            </div>
+            <div class="tips-carousel">
+                <div class="tip-item active">
+                    <p class="tip-text">"Basado en tu patrón de productividad, te recomiendo tomar un descanso corto ahora para mantener tu nivel de concentración."</p>
+                    <span class="tip-source">FocusFlow AI</span>
+                </div>
+            </div>
         </div>
     </div>
 </main>

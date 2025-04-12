@@ -3,32 +3,47 @@
 <head>
   <meta charset="UTF-8">
   <title>Bienvenido a FocusFlow</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
   <style>
+    /* Actualizar las variables de fuentes al inicio del CSS */
+    :root {
+        --font-heading: 'Space Grotesk', sans-serif;
+        --font-body: 'Plus Jakarta Sans', sans-serif;
+    }
+
     body {
-      font-family: 'Inter', sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f4f4f4;
+        font-family: var(--font-body);
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+        line-height: 1.6;
     }
 
     .header {
       background-color: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
-      padding: 1rem 2rem;
-      box-shadow: 
-        0 4px 6px -1px rgba(0, 0, 0, 0.1),
-        0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      padding: 0.75rem 2rem;
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
+      z-index: 1000;
+      transition: all 0.3s ease;
+      box-shadow: 
+        0 4px 6px -1px rgba(0, 0, 0, 0.1),
+        0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      z-index: 1000;
-      transition: all 0.3s ease;
+      gap: 2rem;
     }
 
     .header.scrolled {
@@ -37,47 +52,62 @@
     }
 
     .logo {
-      color: #137333;
-      font-size: 1.5rem;
-      font-weight: 600;
-      text-decoration: none;
       display: flex;
       align-items: center;
-      gap: 0.5rem;
-      transition: all 0.3s ease;
+      gap: 0.75rem;
+      text-decoration: none;
+      transition: transform 0.2s ease;
     }
 
     .logo:hover {
       transform: translateY(-1px);
     }
 
+    .logo img {
+      height: 32px;
+      width: auto;
+      border-radius: 8px;
+    }
+
+    .logo-text {
+        font-family: var(--font-heading);
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: #137333;
+        letter-spacing: -0.02em;
+    }
+
     .nav-buttons {
       display: flex;
-      gap: 1rem;
+      align-items: center;
+      gap: 0.75rem;
     }
 
     .btn {
       background-color: transparent;
       color: #137333;
-      border: 2px solid #137333;
-      padding: 0.5rem 1.5rem;
+      border: 1.5px solid #137333;
+      padding: 0.5rem 1.25rem;
       border-radius: 8px;
       font-size: 0.9rem;
-      font-weight: 500;
+      font-weight: 600;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: all 0.2s ease;
       text-decoration: none;
+      font-family: var(--font-body);
+      letter-spacing: -0.01em;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 6px rgba(19, 115, 51, 0.1);
+      background-color: rgba(19, 115, 51, 0.05);
     }
 
     .btn-primary {
       background-color: #137333;
       color: white;
       border: none;
-    }
-
-    .btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 4px 6px rgba(19, 115, 51, 0.1);
     }
 
     .btn-primary:hover {
@@ -145,9 +175,15 @@
     transform: perspective(1000px) rotateY(0deg);
 }
 
+.section-title, h1, h2, h3 {
+    font-family: var(--font-heading);
+    letter-spacing: -0.02em;
+}
+
 .section-title {
-    font-size: 3.2rem;
-    line-height: 1.2;
+    font-size: 3.5rem;
+    line-height: 1.1;
+    font-weight: 700;
     margin-bottom: 1.5rem;
     background: linear-gradient(135deg, #137333 0%, #1a8940 100%);
     -webkit-background-clip: text;
@@ -155,10 +191,11 @@
 }
 
 .section-subtitle {
-    font-size: 1.3rem;
-    line-height: 1.6;
+    font-size: 1.25rem;
+    line-height: 1.7;
     color: #444;
     margin-bottom: 2.5rem;
+    font-weight: 400;
 }
 
     .features-grid {
@@ -195,19 +232,19 @@
       font-size: 1.5rem;
     }
 
-    .section-title {
-      color: #137333;
-      font-size: 2.5rem;
-      margin-bottom: 1.5rem;
-      font-weight: 600;
+    .feature-card h3 {
+        font-family: var(--font-heading);
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        color: #1a1a1a;
     }
 
-    .section-subtitle {
-      color: #444;
-      font-size: 1.2rem;
-      margin-bottom: 3rem;
-      max-width: 600px;
-      line-height: 1.6;
+    .feature-card p {
+        font-family: var(--font-body);
+        font-size: 1.05rem;
+        line-height: 1.6;
+        color: #555;
     }
 
     .highlight {
@@ -298,9 +335,10 @@
     }
 
     .cta-section h2 {
-        color: white;
-        font-size: 2rem;
-        margin-bottom: 1rem;
+        font-family: var(--font-heading);
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
     }
 
     .btn-large {
@@ -327,9 +365,10 @@
     }
 
     .footer-section h3 {
-        color: white;
+        font-family: var(--font-heading);
+        font-size: 1.3rem;
+        font-weight: 600;
         margin-bottom: 1.5rem;
-        font-size: 1.2rem;
     }
 
     .footer-section ul {
@@ -351,6 +390,12 @@
         color: white;
     }
 
+    .footer-section p {
+        font-size: 1.05rem;
+        line-height: 1.7;
+        color: #999;
+    }
+
     .social-links {
         display: flex;
         gap: 1rem;
@@ -369,17 +414,73 @@
         border-top: 1px solid #333;
         color: #999;
     }
+
+    .hero-cta-button {
+        display: inline-block;
+        padding: 1rem 2.5rem;
+        font-size: 1.1rem;
+        font-weight: 600;
+        text-decoration: none;
+        color: white;
+        background: linear-gradient(135deg, #137333 0%, #1a8940 100%);
+        border-radius: 12px;
+        transition: all 0.3s ease;
+        box-shadow: 
+            0 4px 6px rgba(19, 115, 51, 0.1),
+            0 1px 3px rgba(19, 115, 51, 0.08);
+        position: relative;
+        overflow: hidden;
+        font-family: var(--font-body);
+        letter-spacing: -0.01em;
+    }
+
+    .hero-cta-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 
+            0 6px 12px rgba(19, 115, 51, 0.15),
+            0 2px 4px rgba(19, 115, 51, 0.1);
+    }
+
+    .hero-cta-button:active {
+        transform: translateY(0);
+        box-shadow: 
+            0 2px 4px rgba(19, 115, 51, 0.1),
+            0 1px 2px rgba(19, 115, 51, 0.06);
+    }
+
+    .hero-cta-button::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0) 0%,
+            rgba(255, 255, 255, 0.2) 50%,
+            rgba(255, 255, 255, 0) 100%
+        );
+        transition: left 0.5s ease;
+    }
+
+    .hero-cta-button:hover::before {
+        left: 100%;
+    }
   </style>
 </head>
 <body>
   <header class="header">
-    <a href="/" class="logo">
-      <img src="https://static.vecteezy.com/system/resources/previews/000/565/466/original/vector-logos-of-green-tree-leaf-ecology.jpg" alt="FocusFlow" height="30">
-    </a>
-    <nav class="nav-buttons">
-      <a href="/login" class="btn">login</a>
-      <a href="/register" class="btn btn-primary">register</a>
-    </nav>
+    <div class="header-container">
+        <a href="/" class="logo">
+            <img src="https://static.vecteezy.com/system/resources/previews/000/565/466/original/vector-logos-of-green-tree-leaf-ecology.jpg" alt="FocusFlow" height="30">
+            <span class="logo-text">FocusFlow</span>
+        </a>
+        <nav class="nav-buttons">
+            <a href="/login" class="btn">Iniciar Sesión</a>
+            <a href="/register" class="btn btn-primary">Registrarse</a>
+        </nav>
+    </div>
   </header>
 
   <main class="main-content">
@@ -390,7 +491,7 @@
                 Your AI-powered companion designed specifically for individuals with ADHD, 
                 helping you transform challenges into achievements.
             </p>
-            <a href="/register" class="cta-button">Get Started</a>
+            <a href="/register" class="hero-cta-button">Get Started</a>
         </div>
         <div class="hero-image">
             <img src="https://domf5oio6qrcr.cloudfront.net/medialibrary/7673/ae080cdc-8915-4e19-9d88-c73091f45ccf16207267097272.jpg" alt="FocusFlow Hero">

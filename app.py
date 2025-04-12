@@ -92,9 +92,9 @@ def home():
 
 @app.route("/logout")
 def logout():
-    session.pop("user_email", None)  # Eliminar el correo del usuario de la sesión
-    return redirect("/login")  # Redirigir al login
-    
+    session.pop("user_email", None)
+    session.pop("user_name", None)
+    return redirect("/login")
 
 # Página del chatbot, accesible solo después de iniciar sesión
 @app.route("/chatbot")
@@ -112,6 +112,7 @@ def google_login():
     user_info = google.get("/plus/v1/people/me")
     user_data = user_info.json()
     email = user_data["emails"][0]["value"]
+    nombre = str(user_data.get("displayName", "Google User"))
 
     # Guardar usuario en la base de datos (si es necesario)
     conn = conectar_mysql()
@@ -120,13 +121,14 @@ def google_login():
     user = cursor.fetchone()
     
     if user is None:  # Si el usuario no está en la base de datos, guardarlo
-        cursor.execute("INSERT INTO usuarios (nombre, email, contraseña) VALUES (%s, %s, %s)", ("Google User", email, ""))
+        cursor.execute("INSERT INTO usuarios (nombre, email, contraseña) VALUES (%s, %s, %s)", (nombre, email, ""))
         conn.commit()
     
-    session["user_email"] = email  # Guardar el correo en la sesión
+    session["user_email"] = email
+    session["user_name"] = nombre
     conn.close()
 
-    return redirect("/chatbot")  # Redirigir al chatbot después de iniciar sesión
+    return redirect("/chatbot")
 
 # Registro de usuario
 @app.route("/register", methods=["GET", "POST"])
@@ -148,7 +150,6 @@ def register():
 
     return render_template("register.html")
 
-# Login de usuario
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
@@ -163,9 +164,11 @@ def login():
         conn.close()
 
         if user and check_password_hash(user[3], password):  # Verificar la contraseña
-            session["user_email"] = user[1]  # Guardar el correo en la sesión
-            return redirect("/chatbot")  # Redirigir a la página de chatbot después de iniciar sesión
+            session["user_email"] = user[2]  # email
+            session["user_name"] = user[1]   # nombre
+            return redirect("/chatbot")
 
+        # Si el usuario no existe o la contraseña es incorrecta
         return "Credenciales incorrectas"
 
     return render_template("login.html")
